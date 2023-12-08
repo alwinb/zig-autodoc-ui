@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation - Zig</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAgklEQVR4AWMYWuD7EllJIM4G4g4g5oIJ/odhOJ8wToOxSTXgNxDHoeiBMfA4+wGShjyYOCkG/IGqWQziEzYAoUAeiF9D5U+DxEg14DRU7jWIT5IBIOdCxf+A+CQZAAoopEB7QJwBCBwHiip8UYmRdrAlDpIMgApwQZNnNii5Dq0MBgCxxycBnwEd+wAAAABJRU5ErkJggg==">
+    <link rel="stylesheet" href="style/base.css">
+    <link rel="stylesheet" href="style/main.css">
+  </head>
+
+<body>
+
+  <div class="banner">
+    This is a beta autodoc build; expect bugs and missing information.
+    <a href="https://github.com/ziglang/zig/wiki/How-to-contribute-to-Autodoc">Report an Issue</a>,
+    <a href="https://github.com/ziglang/zig/wiki/How-to-contribute-to-Autodoc">Contribute</a>,
+    <a href="https://github.com/ziglang/zig/wiki/How-to-read-the-standard-library-source-code">Learn more about stdlib source code</a>.
+  </div>
+
+  <div id=helpModalWrapper class=hidden>
+  <div id="helpModal">
+    <h1>Keyboard Shortcuts</h1>
+    <dl>
+      <di><dt><kbd>?</kbd></dt><dd>Show this help modal</dd></di>
+      <di><dt><kbd>s</kbd></dt><dd>Focus the search field</dd></di>
+      <di><dl>
+        <di><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd></di>
+        <di><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd></di>
+        <di><dt><kbd>⏎</kbd></dt><dd>Go to active search result</dd></di>
+      </dl></di>
+      <di><dt><kbd>esc</kbd></dt><dd>Clear focus  //  Close this modal</dd></di>
+    </dl>
+  </div>
+  </div>
+
+  <aside>
+    <a id="logo" href="#A;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 140">
+      <g fill="#F7A41D">
+        <g>
+          <polygon points="46,22 28,44 19,30"/>
+          <polygon points="46,22 33,33 28,44 22,44 22,95 31,95 20,100 12,117 0,117 0,22" shape-rendering="crispEdges"/>
+          <polygon points="31,95 12,117 4,106"/>
+        </g>
+        <g>
+          <polygon points="56,22 62,36 37,44"/>
+          <polygon points="56,22 111,22 111,44 37,44 56,32" shape-rendering="crispEdges"/>
+          <polygon points="116,95 97,117 90,104"/>
+          <polygon points="116,95 100,104 97,117 42,117 42,95" shape-rendering="crispEdges"/>
+          <polygon points="150,0 52,117 3,140 101,22"/>
+        </g>
+        <g>
+          <polygon points="141,22 140,40 122,45"/>
+          <polygon points="153,22 153,117 106,117 120,105 125,95 131,95 131,45 122,45 132,36 141,22" shape-rendering="crispEdges"/>
+          <polygon points="125,95 130,110 106,117"/>
+        </g>
+      </g>
+      <style>
+      #text { fill: #121212 }
+      @media (prefers-color-scheme: dark) { #text { fill: #f2f2f2 } }
+      </style>
+      <g id="text">
+        <g>
+          <polygon points="260,22 260,37 229,40 177,40 177,22" shape-rendering="crispEdges"/>
+          <polygon points="260,37 207,99 207,103 176,103 229,40 229,37"/>
+          <polygon points="261,99 261,117 176,117 176,103 206,99" shape-rendering="crispEdges"/>
+        </g>
+        <rect x="272" y="22" shape-rendering="crispEdges" width="22" height="95"/>
+        <g>
+          <polygon points="394,67 394,106 376,106 376,81 360,70 346,67" shape-rendering="crispEdges"/>
+          <polygon points="360,68 376,81 346,67"/>
+          <path d="M394,106c-10.2,7.3-24,12-37.7,12c-29,0-51.1-20.8-51.1-48.3c0-27.3,22.5-48.1,52-48.1    c14.3,0,29.2,5.5,38.9,14l-13,15c-7.1-6.3-16.8-10-25.9-10c-17,0-30.2,12.9-30.2,29.5c0,16.8,13.3,29.6,30.3,29.6    c5.7,0,12.8-2.3,19-5.5L394,106z"/>
+        </g>
+      </g>
+      </svg>
+    </a>
+
+    <nav>
+      <div id="sectGudeApiSwitch">
+        <ul class="guides-api-switch hlist">
+          <li><a id="apiSwitch" class="active" href="#A;">API</a></li>
+          <li><a id="guideSwitch" class="" href="#G;">Guides</a></li>
+        </ul>
+      </div>
+
+      <div id="guidesMenu" class="hidden">
+        <h2><span>Guide List</span></h2>
+        <ul id="guidesList" class="packages"></ul>
+      </div>
+
+      <div id="apiMenu" class="hidden">
+        <div id="sectMainPkg" class="hidden">
+          <h2><span>Main Package</span></h2>
+          <ul class="packages vstack">
+            <li><a id="mainPkg" class="" href=""></a></li>
+          </ul>
+        </div>
+
+        <div id="sectPkgs">
+          <h2><span>Dependencies</span></h2>
+          <ul id="listPkgs" class="packages vstack"></ul>
+        </div>
+
+        <div id="sectInfo">
+          <h2><span>Zig Version</span></h2>
+          <p id="tdZigVer"></p>
+        </div>
+
+        <div class=hstack>
+          <label><input id="privDeclsBox" type="checkbox"/> 
+          Internal Doc Mode</label>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+
+    <div id="guides" class="wrap hidden">
+    </div> 
+
+    <div id="docs" class="wrap hidden">
+
+      <section class="docs">
+
+        <div id=sectSearch class="x2">
+          <dl class=hstack id="searchPlaceholder">
+            <dt><kbd>s</kbd></dt><dd>to search</dd>
+            <dt><kbd>?</kbd></dt><dd>for more options</dd>
+          </dl>
+          <input type="search" class="search" id="search" autocomplete="off" spellcheck="false" disabled>
+        </div>
+
+        <p id="status">Loading...</p>
+
+        <hgroup id=sectTitle>
+          <h1>Zig Autodoc</h1>
+        </hgroup>
+
+        <!-- Navigation -- Namespace / Declaration Path -->
+        <div id="sectNav">
+          <ul id="listNav" class=hstack></ul>
+        </div>
+
+        <!-- Top level docs -->
+        <div id="sectTldDocs">
+          <h2 id=typeKind>Introduction</h2>
+          <div id="tldDocs" class="hidden"></div>
+        </div>
+
+        <!-- Sub- namespaces -->
+        <div id="sectNamespaces" class="hidden">
+          <h2>Namespaces</h2>
+          <ul id="listNamespaces" class=hlist></ul>
+        </div>
+
+        <div id="sectSearchResults" class="hidden">
+          <h2>Search Results</h2>
+          <ul id="listSearchResults" class=vstack></ul>
+          <p id="sectSearchAllResultsLink" class="hidden"><a href="">show all results</a></p>
+        </div>
+
+        <div id="fnProto" class="hidden">
+          <pre id="fnProtoCode"></pre>
+          <div id="fnSourceLink"></div>
+        </div>
+
+        <h1 id="hdrName" class="hidden"></h1>
+
+        <div id="fnNoExamples" class="hidden">
+          <p>This function is not tested or referenced.</p>
+        </div>
+
+        <div id="declNoRef" class="hidden">
+          <p>
+          This declaration is not tested or referenced, and it has therefore not been included in
+          semantic analysis, which means the only documentation available is whatever is in the
+          doc comments.
+          </p>
+        </div>
+
+        <div id="sectParams" class="hidden">
+          <h2>Parameters</h2>
+          <div id="listParams"></div>
+        </div>
+
+        <div id="sectFnErrors" class="hidden">
+          <h2>Errors</h2>
+          <div id="fnErrorsAnyError">
+            <p><span class="tok-type">anyerror</span> means the error set is known only at runtime.</p>
+          </div>
+          <div id="tableFnErrors"><dl id="listFnErrors"></dl></div>
+        </div>
+
+        <div id="sectSearchNoResults" class="hidden">
+          <h2>No Results Found</h2>
+          <p>Here are some things you can try:</p>
+          <ul>
+            <li>Check out the <a id="langRefLink">Language Reference</a> for the language itself.</li>
+            <li>Check out the <a href="https://ziglang.org/learn/">Learn page</a> for other helpful resources for learning Zig.</li>
+            <li>Use your search engine.</li>
+          </ul>
+          <p>Press <kbd>?</kbd> to see keyboard shortcuts and <kbd>Esc</kbd> to return.</p>
+        </div>
+
+        <div id="sectFields" class="hidden">
+          <h2>Fields</h2>
+          <div id="listFields"></div>
+        </div>
+
+        <div id="sectTypes" class="hidden">
+          <h2>Types</h2>
+          <ul id="listTypes" class=hlist></ul>
+        </div>
+
+        <div id="sectGlobalVars" class="hidden">
+          <h2>Global Variables</h2>
+          <div class="table-container">
+            <table>
+              <tbody id="listGlobalVars"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="sectFns" class="hidden">
+          <h2>Functions</h2>
+          <div class="table-container">
+            <dl id="listFns"></dl>
+          </div>
+        </div>
+
+        <div id="sectValues" class="hidden">
+          <h2>Values</h2>
+          <div class="table-container">
+            <table>
+              <tbody id="listValues"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="sectErrSets" class="hidden">
+          <h2>Error Sets</h2>
+          <ul id="listErrSets" class="hlist"></ul>
+        </div>
+
+        <div id="fnExamples" class="hidden">
+          <h2>Examples</h2>
+          <ul id="listFnExamples" class="examples"></ul>
+        </div>
+
+        <div id="sectDocTests" class="hidden">
+          <h2>DocTests</h2>
+          <pre id="docTestsCode"></pre>
+        </div>
+
+        <div id="sectTests" class="hidden">
+          <h2>Tests</h2>
+          <div class="table-container">
+            <table>
+              <tbody id="listTests"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="scripts/autodoc.js"></script>
+  <script src="scripts/markdown.js"></script>
+  <script type="module" src="scripts/main.js"></script>
+  <script>
+    window.addEventListener ('click', evt => {
+      if (evt.altKey) document.documentElement.classList.toggle ('debug')
+    })
+  </script>
+
+</body>
+</html>

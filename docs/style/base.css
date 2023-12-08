@@ -1,0 +1,320 @@
+/* Vertical Rhythm
+/* =============== */
+
+/* Vertical metrics MUST always be set in rem units. 
+  Horizontal metrics may be set in rem, or in the font-size
+  dependent em or ch units. The font-size may be set in rem,
+  or in some other unit, however line-heights MUST be set in
+  rational multiples of rem units to ensure a consistent
+  vertical rhythm. */
+
+/* In debug mode, show the 1rem baseline rhythm */
+
+html.debug {
+  background:repeating-linear-gradient(to bottom,
+    #0000 0,
+    #0000 calc(1rem - 1px),
+    #e0e0e0 calc(1rem - 1px),
+    #e0e0e0 1rem,
+    #0000 1rem);
+}
+
+/* In debug mode, show the outlines of all elements */
+
+html.debug * {
+  outline:1px solid rgba(0,0,0,.4);
+  opacity:.95;
+}
+
+
+/* Establish a vertial rhythm by using the rem unit as a
+  global line-height unit */
+
+html {
+  font-size:21px;
+  line-height:1;
+  margin:0; padding:0;
+  font-family:Sans-Serif;
+}
+
+body {
+  font-size:calc(2rem/3);
+  line-height:1rem;
+  padding:1rem; /*NB */
+  margin:0;
+}
+
+/* NB. Use the border-box box model; and
+  by default, inherit font-size and line-height */
+
+* {
+  box-sizing:border-box;
+  line-height:inherit;
+  font-size:inherit;
+}
+
+/* Block elements are typically followed by a blank line */
+
+hr,p,ol,ul,dl,table,form,blockquote,pre,figure,img,video,canvas,h1,h2,section {
+  display:block;
+  margin-top:0;
+  margin-bottom:1rem;
+  border-spacing:0;
+}
+
+/* But there is no blank line after :last-child */
+
+hr:last-child,p:last-child,ol:last-child,ul:last-child,dl:last-child,table:last-child,
+form:last-child,blockquote:last-child,pre:last-child,figure:last-child,img:last-child,
+video:last-child,canvas:last-child,h1:last-child,h2:last-child,section:last-child {
+  margin-bottom:0;
+}
+
+/* And not all block elements are not followed by a blank line */
+
+header,main,aside,article,footer,nav,div,dd,dt,fieldset,legend,figcaption,h3,h4,h5,h6,label {
+  display:block;
+  margin-top:0;
+  margin-bottom:0;
+}
+
+
+/* Layout primitives
+/* ================= */
+
+/* A library of layout primitives for flow- based
+  layout: .hstack  .hlist  .vstack  .tab  .layers;
+  classes for spacing: .sep, .hpad, .vpad;
+  and for floats: .fl, .fr, .clear */
+
+/* Horizontal stacks and -lists */
+
+.hstack, .hlist {
+  display:block;
+  padding-left:0;
+}
+.hstack > *, .hlist > * {
+  vertical-align:top;
+  display:inline-block;
+  line-height:inherit;
+  padding:0 .75ch; /* NB */
+}
+
+/* A .hstack is a .hlist without line wrapping */
+
+.hstack {
+  white-space:nowrap;
+}
+
+/* In debug mode, mark the top and bottom edges in red */
+
+.debug .hstack, .debug .hlist {
+  background:linear-gradient(to bottom,
+    #f006 0,
+    #f006 .2rem,
+    #0000 .2rem,
+    #0000 calc(100% - 0.2rem),
+    #f006 calc(100% - 0.2rem));
+}
+
+/* Vertical stacks */
+
+.vstack {
+  display:block;
+  padding-left:0;
+}
+
+.hstack > .vstack, 
+.hlist > .vstack {
+  display:inline-block;
+}
+
+.vstack > * {
+  display:block;
+}
+
+/* In debug mode, mark the left and right edges in blue */
+
+.debug .vstack {
+  background:linear-gradient(to right,
+    #00f6 0,
+    #00f6 .2rem,
+    #0000 .2rem,
+    #0000 calc(100% - 0.2rem),
+    #00f6 calc(100% - 0.2rem));
+}
+
+/* display-table */
+
+.tab {
+  display:table;
+  border-spacing:0;
+  margin-bottom:1rem; /* .tab-s are followed by blank lines */
+}
+.tab:last-child {
+  margin-bottom:0; /* unless they're :last-child */
+}
+.hstack > *.tab,
+.hlist > *.tab {
+  display:inline-table;
+}
+.tab > * {
+  display:table-row;
+}
+.tab > * > * {
+  display:table-cell;
+  padding:0 .75ch; /* NB REVIEW */
+}
+
+/* In debug mode, mark the edges in green */
+
+.debug .tab {
+  background:linear-gradient(to right,
+    #0f06 0,
+    #0f06 .2rem,
+    #0000 .2rem,
+    #0000 calc(100% - 0.2rem),
+    #0f06 calc(100% - 0.2rem)),
+  linear-gradient(to bottom,
+    #0f06 0,
+    #0f06 .2rem,
+    #0000 .2rem,
+    #0000 calc(100% - 0.2rem),
+    #0f06 calc(100% - 0.2rem));
+}
+
+/* layers */
+
+.layers {
+  position:relative;
+  padding:0;
+}
+.layers > * {
+  position:absolute;
+  top:0; left:0;
+}
+.layers > .base {
+  position:unset; /* REVIEW */
+}
+
+
+/* Flow
+/* ============= */
+
+.fl { float:left }
+.fr { float:right }
+.clear { display:block; clear:both; }
+.nowrap { white-space:nowrap }
+.nowrap > * { white-space:normal } /* REVIEW */
+.l { text-align:left; }
+.c { text-align:center; }
+.r { text-align:right; }
+
+
+/* Spacing: .sep, .hpad, .vpad
+/* =========================== */
+
+.hstack.sep > * { margin-right:1rem }
+.hstack.sep > *:last-child { margin-right:0 }
+.vstack.sep > *:last-child { margin-bottom:1rem }
+.vstack.sep > *:last-child { margin-bottom:0 }
+.tab.sep { border-spacing:1rem; }
+
+.hpad { padding: 0 1rem }
+.vpad { padding: 1rem 0 }
+
+
+/* Semantic Colors
+/* =============== */
+
+/* Allow setting inherited colors */
+/* classes: .link, .selected */
+
+:root {
+  --border-color: black;
+  --accent-color: dodgerblue;
+  --link-color: var(--accent-color);
+  --select-color: var(--accent-color);
+  --select-text-color: white;
+  --dark-red:#9D0006; /* It might be a nice idea to add vars for indexed/ terminal colors? */
+}
+
+/* Admonitions (TODO warn, danger, info, ...) */
+
+.err, .error { 
+  color:var(--dark-red);
+  --accent-color:var(--dark-red);
+  --link-color:var(--dark-red);
+}
+
+.link
+  { color:var(--link-color) }
+
+
+/* Interactivity classes
+/* ===================== */
+
+/* TODO selection/ focus, dimmed, screened, ... */
+
+.clipped { overflow:hidden }
+.scroll  { overflow:auto }
+.scrollx { overflow:hidden; overflow-x:auto }
+.scrolly { overflow:hidden; overflow-y:auto }
+.noev    { pointer-events:none }
+.ptr     { cursor:pointer }
+.hidden  { display:none }
+
+.link, .btn {
+  text-decoration:none;
+  cursor:pointer;
+  margin:0 }
+
+.link:hover, .btn:hover
+   { text-decoration:underline }
+
+.selected {
+  background: var(--select-color);
+  color: var(--select-text-color)
+}
+
+/* other? focus/ default on button/
+
+/* consider...
+:enabled
+:disabled
+:default
+:checked
+:indeterminate
+:blank
+:valid
+:invalid
+:read-only
+:read-write
+:autofill
+:placeholder-shown
+:in-range
+:out-of-range
+:required
+:optional
+:user-invalid
+*/
+
+/* Type */
+
+:root {
+  --sans:  Sans-Serif;
+  --serif: Serif;
+  --mono:  Hack, Menlo, Monaco, MonoSpace;
+}
+
+.sans { font-family: var(--sans) }
+.serif { font-family: var(--serif) }
+.mono { font-family: var(--mono) }
+
+/* Line-heights */
+
+.x2 { line-height:2rem; }
+.x3 { line-height:3rem; }
+.x4 { line-height:4rem; }
+.xx18 { line-height:calc(18rem/12) }
+

@@ -1,0 +1,448 @@
+
+/* Vertical rhythm
+/* --------------- */
+
+:root {
+  font-size:26px; /* Set rem */
+  --mono: "Source Code Pro", monospace;
+}
+
+body {
+  font-size:15.4px;
+}
+
+main {
+  margin-bottom:5rem;
+}
+
+h1 {
+  line-height:2rem;
+  font-size:1.45rem;
+}
+
+#sectTitle {
+  margin:0 0 .5rem;
+}
+
+#listNav {
+  font-size:.65rem;
+}
+
+h2 {
+  font-size:.7rem;
+  line-height:1rem;
+  margin:0 0 0.5rem;
+}
+
+.docs pre {
+  margin:.5rem 0;
+}
+
+
+/* Colors
+/* ------ */
+
+:root {
+  --theme-color: #F7A41D;
+  --select-color: #F7A41D; /*orange;*/
+  --select-color-text: #121212;
+  /* light theme */
+  --banner-color-text: #121212;
+  --body-color-text: #121212;
+  --body-color-bg: white;
+  --body-color-screen: #efefef;
+  --search-color-bg: #f1f1f1;
+  --search-color-bg-focus: white;
+  --search-color-shadow: rgba(0, 0, 0, 0.18);
+  --help-sh-color: rgba(0, 0, 0, 0.75);
+  --help-bg-color: #999;
+  --modal-color-text:white;
+  --modal-backdrop:#fffd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-color-text: #ddd;
+    --body-color-bg: black;
+    --body-color-screen:#2A2A2A;
+    --search-color-bg: #3c3c3c;
+    --search-color-bg-focus: black;
+    --search-color-shadow: rgba(255, 255, 255, 0.28);
+    --help-sh-color: rgba(142, 142, 142, 0.5);
+    --help-bg-color: #333;
+    --modal-backdrop:#000a;
+  }
+}
+
+body {
+  color:var(--body-color-text);
+  background:var(--body-color-bg);
+}
+
+code, pre {
+  background:var(--body-color-screen);
+}
+
+a, a:hover, input { 
+  color:inherit;
+}
+
+a.active {
+  color:var(--select-color);
+}
+
+/* tokens */
+
+.tok-kw {
+  color: #333;
+  font-weight: bold;
+}
+.tok-str {
+  color: #d14;
+}
+.tok-builtin {
+  color: #0086b3;
+}
+.tok-comment {
+  color: #777;
+  font-style: italic;
+}
+.tok-fn {
+  color: #900;
+}
+.tok-null {
+  color: #008080;
+}
+.tok-number {
+  color: #008080;
+}
+.tok-type {
+  color: #458;
+  font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tok-kw {
+    color: #eee;
+  }
+  .tok-str {
+    color: #2e5;
+  }
+  .tok-builtin {
+    color: #ff894c;
+  }
+  .tok-comment {
+    color: #aa7;
+  }
+  .tok-fn {
+    color: var(--theme-color);
+  }
+  .tok-null {
+    color: #ff8080;
+  }
+  .tok-number {
+    color: #ff8080;
+  }
+  .tok-type {
+    color: #68f;
+  }
+}
+
+/* js support */
+
+html.debug body { background:none !important; }
+
+.hidden { display:none }
+.expand .sum-less { display:none }
+
+/* Interactivity */
+
+a:hover
+  { text-decoration:none }
+
+#listNav li a,
+#listSearchResults li a,
+.fnSignature a
+  { text-decoration:none }
+
+#listNav li a:hover,
+#listSearchResults li a:hover,
+.fnSignature a:hover
+  { text-decoration:underline }
+
+
+/* Page width */
+
+.docs > div, main>div#guides {
+  max-width:35rem;
+}
+
+div#sectSearch,
+div#sectNav {
+  width:auto;
+}
+
+main p {
+  max-width:45em;
+  /* Avoid long lines */
+}
+
+
+/* Namespace / Declaration Path */
+
+.hlist > * {
+  padding:0 1.3ch 0 0;
+}
+
+#listNav li {
+  padding:0;
+}
+
+#listNav li::after{
+  content:'>';
+  display:inline-block;
+  width:1.8em;
+  text-align:center;
+}
+
+#listNav li a {
+  display:inline-block;
+  height:inherit;
+}
+
+#listNav li:last-child::after {
+  display:none;
+}
+
+
+/* Lay out
+/* ------- */
+
+body {
+  padding:2.5rem 2rem 1rem 10rem;
+  margin:0;
+}
+
+aside {
+  width:10rem;
+  padding:1rem;
+  margin:-1rem 0 0 -10rem; /** Pull-into-the-padding technique */
+  float:left;
+  position:fixed;
+}
+
+.banner {
+  position:fixed;
+  z-index:20;
+  width:100vw;
+  line-height:1rem;
+  padding: .25rem 1rem;
+  margin:-2.5rem -1rem 0 -10rem; /* Pull into the padding */
+  font-size:.9em;
+  text-align: center;
+
+  background-color: var(--theme-color);
+  color: var(--banner-color-text);
+}
+
+#logo {
+  display:block;
+  width:5rem;
+  height:3rem;
+}
+
+#sectSearch {
+  height:2rem;
+  position:relative;
+}
+
+#searchPlaceholder {
+  position:absolute;
+  right:0;
+  pointer-events:none;
+  z-index:10;
+  padding:0 .5rem;
+  height:2rem;
+}
+
+#search {
+  position:absolute;
+  top:0;left:0;
+  height:2rem;
+  width:100%;
+  padding:0 1ch;
+  outline:none;
+  border:0;
+  background: var(--search-color-bg);
+  border-bottom: 0.125rem solid currentColor;
+  margin-bottom:-0.125rem;
+}
+
+#search:focus {
+  background: var(--search-color-bg-focus);
+  box-shadow: 0 .07rem .4rem .07rem var(--search-color-shadow);
+  border-bottom-color: var(--theme-color);
+}
+
+#helpModalWrapper {
+  position:fixed;
+  z-index:20;
+  top:0;left:0;
+  width:100vw;
+  height:100vh;
+  background:var(--modal-backdrop);
+}
+
+#helpModal {
+  position:fixed;
+  width:14rem;
+  left:calc(50vw - 7rem);
+  top:calc(50vh - 7rem);
+  padding:1rem;
+  line-height:1.5rem;
+  font-size: .615rem;
+  box-shadow: 0 0.5rem 2.5rem 0.2rem var(--help-sh-color);
+  background-color: var(--help-bg-color);
+  border: 0.125rem solid var(--body-color-text);
+  color: var(--modal-color-text);
+}
+
+#helpModal h1 {
+  text-align:center;
+  line-height:1.5rem;
+  font-size:1rem;
+}
+
+#helpModal dt {
+  padding-right:2ch;
+}
+
+kbd {
+  display: inline;
+  padding: .07rem .22rem .15rem;
+  font-family: var(--mono);
+  color: #000;
+  background-color: #fafbfc;
+  border-color: #d1d5da;
+  border-bottom-color: #c6cbd1;
+  border: solid 0.0625em;
+  border-radius: 0.1875em;
+  box-shadow: inset 0 -0.2em 0 #c6cbd1;
+  cursor: default;
+}
+
+#listSearchResults li::before {
+  content:' ';
+  display:block;
+  background:#0000;
+  height:5rem; /* trick to keep 5rem space above scrollIntoView () */
+  margin-top:-5rem;
+}
+
+#listSearchResults li a {
+  display:block;
+  line-height:calc(1.5rem - 1px);
+  border-bottom:1px solid #ccc;
+  padding:0 .7ch;
+}
+
+/* override base.css as the scroll-trick breaks it */
+#listSearchResults li.selected {
+  background:none; 
+}
+
+#listSearchResults li.selected a {
+  background:var(--select-color);
+  color:var(--select-color-text);
+}
+
+/*
+.modal {
+  --modal--backdrop-color: #fffe;
+  position:fixed;
+  top:0;left:0;
+  width:100vw;
+  height:100vh;
+  line-height:100vh;
+  background:var(--modal--backdrop-color);
+  text-align:center;
+  vertical-align:center;
+}
+*/
+
+/* Defaults
+/* ======== */
+
+di {
+  display:block;
+}
+
+di > dd, di > dt {
+  display:inline-block;
+}
+
+dl dl {
+  margin-left:1rem;
+}
+
+pre, code {
+  padding:.07rem .5ch .01rem;
+  border-radius:.13rem;
+  font-family:var(--mono);
+  overflow:auto;
+}
+
+code {
+  padding:.07rem .17rem .01rem;
+}
+
+pre code {
+  padding:unset;
+  border-radius:unset;
+}
+
+dt, dd { margin:0; padding:0; }
+
+
+/* Specific
+/* --------- */
+
+nav > div,
+#apiMenu > div,
+section.docs > div,
+#listFns > div {
+  margin-bottom:1rem;
+}
+
+#listFns > div > dt,
+#listFns > div > dd {
+  display:block;
+}
+
+.tok-fn {
+  display:inline-block;
+  margin-right:1ch;
+}
+
+.argBreaker {
+  display:none;
+}
+
+#listValues td,
+#listGlobalVars td {
+  padding:.5rem .5rem;
+}
+
+#listValues td:first-child,
+#listGlobalVars td:first-child {
+  padding-left:0;
+}
+
+#listFnErrors dt { /* TODO */
+  font-weight:bold;
+  margin:.25rem 0;
+}
+#listFnErrors dd {
+  margin-left:1.5rem;
+}
+

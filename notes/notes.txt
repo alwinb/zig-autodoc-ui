@@ -1,0 +1,110 @@
+
+Notes on the JSON autodoc data format
+-------------------------------------
+
+Slowly discovering the format of the autodoc data, 
+I'm writing it down here using a pseudo-typescript notation.
+
+The type information is available as types elsewhere, so I'd rather
+use those directly than now work through another layer; In fact,
+I think I'd prefer to work woth the binary data directly instead,
+and use extern or packed structs from within javascipt.
+
+Anyway. 
+
+Top level is an object:
+
+type Autodoc = {
+  typeKinds: string[],
+  rootPkg: number,
+  params: object,
+  packages: Package[],
+  errors: [...],
+  astNodes: AstNode[]
+  calls: [...],
+  files: string[]
+  types: [...],
+  decls: Decl[]
+  exprs: Expr[],
+  comptimeExprs: ComptimeExpr[]
+  guides: object,
+}
+
+type Package = {
+  name: string,
+  file: number,
+  main: number,
+  table: object // 
+}
+
+type AstNode = [
+  number,
+  number,
+  number,
+  object,
+  object,
+  object,
+  object,
+  boolean,
+]
+
+type Decl = [
+  string, // name
+  'const' | 'var',
+  number,
+  DeclTypeRefExpr,
+  number | null,
+  boolean,
+]
+
+DeclTypeRefExpr = {
+  typeRef: { type: number },
+  expr: { type: number }
+}
+
+An Expr is an object with a single property with an ExprKey key;
+The type of the propery depends on the key.
+(I'm not sure this can be expressed in typescript lingo, so abusing the notation:)
+
+type ExprKey 
+  = { comptimeExpr: number }
+  | { type: number }
+  | { refPath: object[] }
+  | { typeOf: ... }
+  | { switchOp: ... }
+  | { enumLiteral: string }
+  | { array: number[] }
+  | { call: ... }
+  | { struct: object[] }
+  | { as: { typeRefArg: number, exprArg: number } }
+  | { int: number }
+  | { declRef: number }
+  | { undefined: {} }
+  | { binOp: { lhs, name, rhs } }
+  | { binOpIndex: ... }
+  | { builtin: ... }
+  | { string: ... }
+  | { errorUnion: ... }
+  | { typeInfo: ... }
+  | { builtinBin: ... }
+  | { null: ... }
+  | { builtinIndex: ... }
+  | { sizeOf: ... }
+  | { bool: ... }
+  | { bitSizeOf: ... }
+  | { void: ... }
+  | { slice: ... }
+  | { '&': ... }
+  | { int_bi: ... }
+  | { enumToIn: ... }
+  | { float12: ... }
+  | { floa: ... }
+  | { errorSet: ... }
+  | { builtinBinInde: ... }
+  | ...
+
+
+type ComptimeExpr = 
+  { code:string }
+
+
